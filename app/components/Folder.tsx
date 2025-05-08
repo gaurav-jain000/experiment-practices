@@ -1,6 +1,7 @@
 "use client";
 import { FolderType } from "@/lib/types.";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 function Folder({ folder }: { folder: FolderType }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ function Folder({ folder }: { folder: FolderType }) {
           xmlns="http://www.w3.org/2000/svg"
           width="2em"
           height="2em"
-          className={`text-current ${!isOpen ? "rotate-180" : ""}`}
+          className={`text-current duration-300 ${!isOpen ? "rotate-180" : ""}`}
           viewBox="0 0 24 24"
         >
           <path
@@ -34,14 +35,14 @@ function Folder({ folder }: { folder: FolderType }) {
           ></path>
         </svg>
       </button>
-      <div
-        className="overflow-hidden transition-all duration-300 ease-in-out ms-8"
-        style={{ height: isOpen ? "auto" : 0 }}
+      <motion.div
+        className="overflow-hidden ms-8"
+        style={{ height: isOpen ? "auto" : "0px" }}
       >
         {folder.children.map((child, index) => (
           <Folder key={child.name + "-" + index} folder={child} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
